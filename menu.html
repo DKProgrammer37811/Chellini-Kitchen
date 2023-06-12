@@ -1,0 +1,856 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style2.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i.postimg.cc/7634d72z/image-removebg-preview.png" type="image/x-icon">
+  <title>Chellini's Kitchen</title>
+  <style>
+    .cool-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #E2571E;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cool-button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    .cool-button:hover {
+      background-color: #E2571E;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .cool-button:hover:before {
+      left: 0;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .content {
+        align-items: center;
+      }
+
+      .food-item {
+        width: 100%;
+      }
+    }
+
+    
+    input[type="checkbox"] {
+      display: none;
+    }
+
+ 
+    label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ccc;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .cool-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cool-button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      z-index: -1;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .cool-button:hover {
+      background-color: #E2571E;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .cool-button:hover:before {
+      left: 0;
+    }
+
+    .cool-button.clicked {
+      background-color: green;
+    }
+
+    .cool-button.clicked::after {
+      content: "Cancel";
+    }
+
+
+    .slideshow-container {
+      position: relative;
+      margin-top: 20px;
+      overflow-x: auto;
+      margin-left: 5%;
+      margin-right: 5%;
+            display: flex;
+
+    }
+
+    .slide {
+      display: flex;
+    }
+
+    .menu {
+      flex: 0 0 16.66667%;
+      background-color: #FF914D;
+      margin: 10px;
+      border-radius: 4%;
+      max-height: 95%;
+      box-shadow: 5px 5px #aaaaaa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      text-align: center;
+    }
+
+    .navigation {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .prev,
+    .next {
+      display: inline-block;
+      padding: 10px;
+      background-color: #ccc;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .button-menu {
+      z-index: 1000;
+
+    }
+
+    .easybutton {
+      position: relative;
+      justify-content: center;
+      display: inline-block;
+      padding: 10px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+      width: 270px;
+      background-color: #FF914D;
+      border: none;
+      overflow: hidden;
+      z-index: 1;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+
+    }
+
+    .easybutton span {
+      position: relative;
+      z-index: 2;
+      margin: top 95%;;
+    }
+
+    .hover-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #FFF;
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    }
+
+    .easybutton:hover .hover-effect {
+      transform: translateX(0);
+      opacity: 0.1;
+    }
+
+    .easybutton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .easybutton:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .easybutton:hover:before {
+      opacity: 1;
+    }
+
+    .textno {
+      text-decoration: none;
+      color: black;
+      text-align: center;
+    }
+
+    .cart-message {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #FFF;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 9999;
+      width: 250px;
+      height: 250px;
+      text-align: center;
+      animation: zoomInOut 1s ease-in-out;
+    }
+
+
+    .cart-message-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      animation: zoomInOut 1s ease-in-out;
+    }
+
+    .cart-link {
+      display: block;
+      text-decoration: underline;
+      color: #000;
+      animation: zoomInOut 1s ease-in-out;
+    }
+#appe{
+  margin-left:5%;
+}
+    #pas{
+  margin-left:5%;
+}
+    #piz{
+  margin-left:5%;
+}
+    #alc{
+  margin-left:5%;
+}
+    #des{
+  margin-left:5%;
+}
+    .txtfo{
+      text-decoration:none;
+      color:white;
+    }
+    .red-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background-color: #FF0000;
+      animation: redLine 2s linear;
+    }
+
+    @keyframes zoomInOut {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes redLine {
+      0% {
+        left: 0;
+      }
+
+      100% {
+        left: 100%;
+      }
+   
+  </style>
+</head>
+
+<body>
+  <button id="scrollUpButton">&#8593;</button>
+
+  <div class="semibackground">
+    <ul class="slideshow">
+      <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+      <span>
+        <div class="topnav" id="myTopnav">
+
+          <span class="left" style="font-size:40px;cursor:pointer" width="40%" onclick="openNav()"
+            class="side">&#9776;</span>
+
+
+          <img src="https://i.postimg.cc/Jh2vBGbv/computer-icons-eating-restaurant-fork-eat-removebg-preview.png"
+            width="2%" class="lg right">
+
+          <a class="active" href="#contact">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="#contact">Menu</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp&nbsp&nbsp&nbsp
+
+
+          <span class="nav-text"><img
+              src="https://i.postimg.cc/zvGrJ5GD/Screenshot-2023-05-26-185422-removebg-preview.png"
+              class="imglo"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="location.html">Locations</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="#home">Contact</a>
+
+          </a>
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+
+
+
+
+          <center>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3152.94050651972!2d-122.48494299999999!3d37.791433999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzfCsDQ3JzI5LjIiTiAxMjLCsDI5JzA1LjgiVw!5e0!3m2!1sen!2sjp!4v1684974471455!5m2!1sen!2sjp"
+              width="250" height="200" style="border:3;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe><br><br>
+            <a class="active" href="#contact">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#contact">Menu</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp&nbsp&nbsp&nbsp
+
+
+
+            <a href="location.html">Locations</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#home">Contact</a><br><br>
+            <img src="https://i.postimg.cc/zvGrJ5GD/Screenshot-2023-05-26-185422-removebg-preview.png" width="50%">
+
+
+
+
+
+          </center>
+          <h5 class="sidetext2">Discover a world of culinary wonders that will leave you craving for more.<br></h5>
+
+      </span>
+  </div>
+  </ul>
+  <center>
+    <h1 class="underline-effect">Welcome to Chellini's Menu</h1><br>
+    <h3>In order to purchase food from our resturant, gently click the order button below your desired dish</h3>
+        </center>
+      <br>
+      <div>
+        <center><br>
+          <div class="button-menu">
+            <center>
+             <a href="#appe" class="textno"> <button class="easybutton">
+                  <span>Appetizers</span>
+                  <span class="hover-effect"></span>
+              </button></a>
+             <a href="#pas" class="textno"> <button class="easybutton">
+                  <span>Pasta</span>
+                  <span class="hover-effect"></span>
+              </button></a>
+             <a href="#piz" class="textno"> <button class="easybutton">
+                  <span>Pizza</span>
+                  <span class="hover-effect"></span>
+              </button></a>
+              <a href="#alc" class="textno"><button class="easybutton">
+                <span>Alcoholic beverages</span>
+                <span class="hover-effect"></span>
+              </button></a>
+             <a href="#des" class="textno"> <button class="easybutton">
+                <span>Dessert</span>
+                <span class="hover-effect"></span>
+              </button></a>
+              
+            </center>
+          </div>
+      </div>
+  </center>
+  <br>
+  <h2 class="underline-effect lo" id="appe" >Appetizers</h2>
+  <div class="slideshow-container">
+    <div class="slide">
+        <div class="menu">
+          <img src="https://i.postimg.cc/nz3wNcfh/5591650622-bc613cc8db-b.jpg" width="95%" class="box">
+          <h3 class="name">Bruschetta</h3>
+          <h4 class="infop">Grilled bread topped with fresh tomatoes, garlic, basil, and olive oil.</h4><br><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+
+        </div>
+        <div class="menu">
+          <img
+            src="https://i.postimg.cc/yNRzcR9C/caprese-salad-healthy-meal-with-cherry-tomatoes-mozzarella-balls-basil-2829-2547.webp"
+            width="95%" class="box">
+          <h3 class="name">Caprese Salad</h3>
+          <h4 class="infop">Sliced tomatoes, fresh mozzarella cheese, and basil leaves drizzled with olive oil and
+            balsamic glaze.</h4><br>
+         <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+
+        <div class="menu">
+          <img src="https://i.postimg.cc/7ZG1YwGb/I.webp" width="95%" class="box">
+          <h3 class="name">Arancini</h3>
+          <h4 class="infop">Deep-fried rice balls stuffed with cheese, meat, or vegetables.They are crispy on the
+            outside. </h4><br><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/D0GgphrS/i-Stock-513100705.jpg" width="95%" class="box">
+          <h3 class="name">Prosciutto e Melone</h3>
+          <h4 class="infop">Thinly sliced prosciutto wrapped around sweet melon slices.</h4><br><br>
+         <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/mgnS4hmP/rosemary-ricotta-crostini-1.webp" width="95%" class="box">
+          <h3 class="name">Crostini</h3>
+          <h4 class="infop">Toasted bread slices topped with various spreads, such as olive tapenade, roasted peppers,
+            or
+            creamy cheese.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/HLpTpsjC/cheesse.jpg" width="95%" class="box">
+          <h3 class="name">Mozzarella Carrozza</h3>
+          <h4 class="infop">Breaded and fried mozzarella sandwiched between slices of bread.</h4><br><br>
+          <input type="checkbox" id="btn" />
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/rpPWWHBz/8858381ac87ae1c1799d2abffff1a7aa.jpg" width="100%" class="box">
+          <h3 class="name">Pesto chicken bites </h3>
+          <h4 class="infop">Delectable bite-sized appetizers featuring tender chicken, creamy pesto, and flaky puff
+            pastry.</h4><br><br>
+          <input type="checkbox" id="btn" />
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/YSW0CcGx/frittelle-zucchine-e-carote-veg.jpg" width="100%" height="80%" class="box">
+          <h3 class="name">Frittelle di Zucchine</h3>
+          <h4 class="infop">Zucchini fritters made with grated zucchini, flour, eggs, and herbs, served with a side of
+            marinara sauce or aioli.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/gjYB0WJX/polenta-copertina-bollicine.jpg" width="100%" class="box">
+          <h3 class="name">Polenta e Funghi</h3>
+          <h4 class="infop">Creamy polenta topped with sautéed mushrooms, often flavored with garlic, herbs, and
+            Parmesan
+            cheese.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+ 
+  <h2 class="underline-effect lo" id="pas">Pasta</h2>
+  <div class="slideshow-container">
+    <div class="slide">
+
+        <div class="menu">
+          <img src="https://i.postimg.cc/htT4kkJW/Pasta-Carbonara-2-3-scaled.webp" width="100%" class="box">
+          <h3 class="name">Carbonara</h3>
+          <h4 class="infop">A creamy sauce made with eggs, cheese , pancetta or guanciale, black pepper, and sometimes
+            cream.</h4><br>
+<button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/4yWwN2mX/paste-bolognese.jpg" width="100%" class="box">
+          <h3 class="name">Bolognese</h3>
+          <h4 class="infop">A rich and meaty sauce made with ground beef, tomatoes, onions, carrots, celery, red wine,
+            and herbs.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img
+            src="https://i.postimg.cc/FFwwc7Rm/opt-aboutcom-coeus-resources-content-migration-serious-eats-seriouseats-com-images-2016-0.jpg"
+            width="100%" class="box">
+          <h3 class="name">Pesto</h3>
+          <h4 class="infop">A sauce made with fresh basil leaves, garlic, pine nuts, Parmesan cheese, and olive oil,
+            creating a vibrant and aromatic flavor.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/Kvwc1GXg/R.jpg" width="100%" class="box">
+          <h3 class="name">Arrabbiata</h3>
+          <h4 class="infop">A spicy sauce made with tomatoes, garlic, chili peppers, and olive oil, adding a fiery kick
+            to the pasta.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/0jtYY6Gv/R-1.jpg" width="100%" class="box">
+          <h3 class="name">Amatriciana</h3>
+          <h4 class="infop">A sauce made with tomatoes, guanciale, onions, pecorino cheese, and red pepper flakes,
+            providing a bold and savory flavor.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/CLg57MrT/aglio-1-1536x1097.jpg" width="100%" class="box">
+          <h3 class="name">Aglio e Olio</h3>
+          <h4 class="infop">A simple yet flavorful sauce made with garlic, olive oil, and red pepper flakes, often
+            accompanied by parsley and grated cheese.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/8zbZcC91/pasta-alfredo-1.jpg" width="100%" class="box">
+          <h3 class="name">Alfredo </h3>
+          <h4 class="infop">A creamy sauce made with butter, Parmesan cheese, and heavy cream, creating a rich and
+            indulgent flavor.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/cHDqnmzL/R-2.jpg" width="100%" class="box">
+          <h3 class="name">Puttanesca</h3>
+          <h4 class="infop"> A sauce made with tomatoes, olives, capers, anchovies, garlic, and herbs, offering a salty,
+            tangy, and slightly briny taste.</h4><br>
+         <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/qqdmgCJv/df1dc40d4e1d46a485f263585ee6421c.jpg" width="100%" class="box">
+          <h3 class="name">Vongole</h3>
+          <h4 class="infop">A sauce made with clams, garlic, white wine, parsley, and olive oil, resulting in a delicate
+            and seafood-infused flavor.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+      </div>
+    
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+   <div class="semibackground">
+  <h2 class="underline-effect lo" id="piz">Pizza</h2>
+  <div class="slideshow-container">
+    <div class="slide">
+      
+
+        <div class="menu">
+          <img src="https://i.postimg.cc/WzdTkGrB/margherita2.png" width="100%" class="box">
+          <h3 class="name">Margherita</h3>
+          <h4 class="infop">A classic pizza topped with tomato sauce, mozzarella cheese, and fresh basil leaves.</h4><br><br>
+<button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/vHLxHMY5/PN-Classic-Napolitana-1920x1440-1024x768.jpg" width="100%" class="box">
+          <h3 class="name">Napoletana </h3>
+          <h4 class="infop">Originating from Naples, it features tomato sauce, mozzarella cheese, oregano, and extra virgin olive oil.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img
+            src="https://i.postimg.cc/63r42NVs/2981.jpg"
+            width="100%" class="box">
+          <h3 class="name">Quattro Formaggi</h3>
+          <h4 class="infop">This pizza is topped with a combination of four different cheeses such as mozzarella, Gorgonzola, Parmesan, and fontina.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/sgCY2wCZ/pizza-diavola.jpg" width="100%" class="box">
+          <h3 class="name">Diavola</h3>
+          <h4 class="infop">A spicy pizza topped with tomato sauce, mozzarella cheese, spicy salami, and chili flakes.</h4><br><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/63r42NVs/2981.jpg" width="100%" class="box">
+          <h3 class="name">Marinara</h3>
+          <h4 class="infop">A simple yet delicious pizza topped with tomato sauce, garlic, oregano, and extra virgin olive oil. It typically does not have cheese.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/pTMQmCFS/03fe79586de244f880982575b00dd4fe.jpg" width="100%" class="box">
+          <h3 class="name">Capricciosa</h3>
+          <h4 class="infop">This pizza features tomato sauce, mozzarella cheese, ham, mushrooms, artichoke hearts, black olives, and sometimes boiled eggs.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/Y9Q5FdyL/prosciutto-funghi-50-cm-1.jpg" width="100%" class="box">
+          <h3 class="name">Prosciutto e Funghi </h3>
+          <h4 class="infop">Topped with tomato sauce, mozzarella cheese, cooked ham, and sliced mushrooms.</h4><br><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/bvZSHBbJ/pizza-quattro-stagioni-1214.jpg" width="100%" class="box">
+          <h3 class="name">Quattro Stagioni</h3>
+          <h4 class="infop"> This pizza is divided into four sections, each representing a different season. It typically includes artichokes, olives, ham, mushroom.</h4><br>
+         <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/13vs5R8n/1-img-2127.webp" width="100%" class="box">
+          <h3 class="name">BBQ Chicken Pizza</h3>
+          <h4 class="infop">This pizza typically features a barbecue sauce base, cooked chicken breast pieces, red onions, and mozzarella cheese. </h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+<h2 class="underline-effect lo" id="alc">Alcoholic beverages</h2>
+  <div class="slideshow-container">
+    <div class="slide">
+<div class="menu">
+          <img src="https://i.postimg.cc/rmcBSvRX/stock-french-fries-today-170610-tease-01.jpg" width="100%" class="box">
+          <h3 class="name">French Fries</h3>
+          <h4 class="infop">French fries, also known as chips or frites, are a beloved side dish made from deep-fried potato strips. </h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+
+        <div class="menu">
+          <img src="https://i.postimg.cc/FF0Zt76Z/karami-chicken-4-1536x1023-1.jpg" width="100%" class="box">
+          <h3 class="name">Chicken Wings</h3>
+          <h4 class="infop">A rich and meaty sauce made with ground beef, tomatoes, onions, carrots, celery, red wine,
+            and herbs.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img
+            src="https://i.postimg.cc/QVLwdw3y/ey-Jid-WNr-ZXQi-Oi-Jsb21h-LW1l-ZGlh-LXVr-Iiwia2-V5-Ijoi-Zm9v-ZG5ld-Hdvcmsta-W1h-Z2-Ut-Mjg4-OGFk-ZTQt-MTU0-Zi00-ODFi-LTgy-Nzgt.jpg"
+            width="100%" class="box">
+          <h3 class="name">Antipasto</h3>
+          <h4 class="infop">A delightful Italian starter featuring an assortment of cured meats, cheeses, marinated vegetables, olives, and bruschetta. </h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/TwnfqV3F/mike-van-den-bos-F4q-Vqfk-G2-Aw-unsplash-1024x681.jpg" width="100%" class="box">
+          <h3 class="name">Bruschetta</h3>
+          <h4 class="infop">A classic Italian antipasto consisting of grilled bread slices rubbed with garlic, drizzled with olive oil</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/j5bGTGR3/shutterstock-276834221.jpg" width="100%" class="box">
+          <h3 class="name">Garlic Bread</h3>
+          <h4 class="infop">A mouthwatering bread dish made by spreading butter or olive oil infused with garlic and 
+            herbs onto slices of bread.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+ 
+
+  <div class="semibackground">
+     
+<h2 class="underline-effect lo" id="des">Dessert</h2>
+  <div class="slideshow-container">
+    <div class="slide">
+<div class="menu">
+          <img src="https://i.postimg.cc/9Fcw0pmD/Simply-Recipes-Perfect-Cheesecake-LEAD-6-97a8cb3a60c24903b883c1d5fb5a69d3.jpg" width="100%" class="box">
+          <h3 class="name">Cheese Cake</h3>
+          <h4 class="infop">A delectable dessert consisting of a creamy, velvety filling made from cream cheese, sugar, and eggs, baked on a buttery graham cracker.  </h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+        </div>
+
+        <div class="menu">
+          <img src="https://i.postimg.cc/Y9p3rvx5/chocolate-cake-low.jpg" width="100%" 
+            class="box">
+          <h3 class="name">Divine Chocolate Delight</h3>
+          <h4 class="infop">A decadent dessert that indulges the taste buds with its moist and rich chocolatey flavor. This classic cake is made with layers of chocolate.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img
+            src="https://i.postimg.cc/Hx2c9c3Y/DSC04487-scaled.jpg"
+            width="100%" class="box">
+          <h3 class="name">Vanilla Bliss</h3>
+          <h4 class="infop">Indulge in the heavenly delight of this velvety smooth vanilla cake. With its delicate aroma and tender crumb, every bite is pure bliss.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/rFccLZ8P/christmas-ice-cream-desserts-inspirational-raspberry-amp-pistachio-ice-cream-pudding-recipe-of-chris.jpg" width="100%" class="box">
+          <h3 class="name">Raspberry Delight</h3>
+          <h4 class="infop">Experience the perfect harmony of sweet and tangy flavors with this refreshing raspberry ice cream. Its luscious and vibrant pink color</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        <div class="menu">
+          <img src="https://i.postimg.cc/MKX5XqKM/bigstock-Chocolate-Ice-Cream-62001956.webp" width="100%" class="box">
+          <h3 class="name">Choco Dream</h3>
+          <h4 class="infop">Immerse yourself in the ultimate chocolate indulgence with this velvety smooth and rich chocolate ice cream. Each spoonful is a delight.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </DIV>
+   
+  
+  <br>
+
+  
+<br><center><a href="cart.html"> <button class="cool-button">Place Order</button></a><br><h4>If any issues contact to the resturant for direct call order.</h4></center><br><br>
+  <div class="cart-message" id="cart-message">
+    <div class="cart-message-title">View <a href="cart.html">Cart</a></div>
+    <a href="#" class="cart-link"><br>
+      <img
+        src="https://i.postimg.cc/1zB1vN7X/vector-add-to-cart-vector-icon-removebg-preview.png"
+        width="50%" alt="Cart Icon">
+    </a><br>
+    <h2>Added to cart!</h2>
+  </div>
+ <div class="footer">
+    <table class="tabledesign">
+      <tr>
+
+
+
+
+
+
+        <td>
+          <img class="logo" src="https://i.ibb.co/th4zQ27/image.png">
+
+
+
+
+
+        </td>
+        <td>
+          <ul >
+            <li><a href="index.html" class="txtfo">HOME</a></li><br>
+            <li><a href="menu.html" class="txtfo">MENU</a</li><br><br>
+            <li><a href="location.html" class="txtfo">LOCATION</a></li><br>
+            <li><a href="contact.html" class="txtfo">CONTACT</a></li><br>
+          </ul>
+        </td>
+        <td>
+          <img class="map" src="https://i.ibb.co/HX9q8xD/image.png">
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+
+
+
+  </center>
+
+
+
+
+
+
+  <script type="text/javascript" src="script.js"></script>
+  <script>
+    function addToCart() {
+      var cartMessage = document.getElementById("cart-message");
+      var redLine = document.createElement("div");
+      redLine.classList.add("red-line");
+      document.body.appendChild(redLine);
+
+      cartMessage.style.display = "block";
+      setTimeout(function () {
+        cartMessage.style.display = "none";
+        redLine.parentNode.removeChild(redLine);
+      }, 3000); 
+    }
+  </script>
+
+
+
+</body>
+
+</html>
