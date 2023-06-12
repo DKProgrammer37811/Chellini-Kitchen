@@ -2,339 +2,604 @@
 
 <head>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style2.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://i.postimg.cc/7634d72z/image-removebg-preview.png" type="image/x-icon">
-  <title>Chellini's Kitchen</title>
+<title>Chellini's Kitchen</title>
+  <style>
+    .cool-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #E2571E;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cool-button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    .cool-button:hover {
+      background-color: #E2571E;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .cool-button:hover:before {
+      left: 0;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .content {
+        align-items: center;
+      }
+
+      .food-item {
+        width: 100%;
+      }
+    }
+
+    
+    input[type="checkbox"] {
+      display: none;
+    }
+
+ 
+    label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ccc;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .cool-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cool-button:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      z-index: -1;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .cool-button:hover {
+      background-color: #E2571E;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .cool-button:hover:before {
+      left: 0;
+    }
+
+    .cool-button.clicked {
+      background-color: green;
+    }
+
+    .cool-button.clicked::after {
+      content: "Cancel";
+    }
+
+
+    .slideshow-container {
+      position: relative;
+      margin-top: 20px;
+      overflow-x: auto;
+      margin-left: 5%;
+      margin-right: 5%;
+            display: flex;
+
+    }
+
+    .slide {
+      display: flex;
+    }
+
+    .menu {
+      flex: 0 0 16.66667%;
+      background-color: #FF914D;
+      margin: 10px;
+      border-radius: 4%;
+      max-height: 95%;
+      box-shadow: 5px 5px #aaaaaa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      text-align: center;
+    }
+
+    .navigation {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .prev,
+    .next {
+      display: inline-block;
+      padding: 10px;
+      background-color: #ccc;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .button-menu {
+      z-index: 1000;
+
+    }
+
+    .easybutton {
+      position: relative;
+      justify-content: center;
+      display: inline-block;
+      padding: 10px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+      width: 270px;
+      background-color: #FF914D;
+      border: none;
+      overflow: hidden;
+      z-index: 1;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+
+    }
+
+    .easybutton span {
+      position: relative;
+      z-index: 2;
+      margin: top 95%;;
+    }
+
+    .hover-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #FFF;
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    }
+
+    .easybutton:hover .hover-effect {
+      transform: translateX(0);
+      opacity: 0.1;
+    }
+
+    .easybutton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .easybutton:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .easybutton:hover:before {
+      opacity: 1;
+    }
+
+    .textno {
+      text-decoration: none;
+      color: black;
+      text-align: center;
+    }
+
+    .cart-message {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #FFF;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 9999;
+      width: 250px;
+      height: 250px;
+      text-align: center;
+      animation: zoomInOut 1s ease-in-out;
+    }
+
+
+    .cart-message-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      animation: zoomInOut 1s ease-in-out;
+    }
+
+    .cart-link {
+      display: block;
+      text-decoration: underline;
+      color: #000;
+      animation: zoomInOut 1s ease-in-out;
+    }
+#appe{
+  margin-left:5%;
+}
+    #pas{
+  margin-left:5%;
+}
+    #piz{
+  margin-left:5%;
+}
+    #alc{
+  margin-left:5%;
+}
+    #des{
+  margin-left:5%;
+}
+    .txtfo{
+      text-decoration:none;
+      color:white;
+    }
+    .red-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      background-color: #FF0000;
+      animation: redLine 2s linear;
+    }
+
+    @keyframes zoomInOut {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes redLine {
+      0% {
+        left: 0;
+      }
+
+      100% {
+        left: 100%;
+      }
+   
+  </style>
 </head>
 
 <body>
   <button id="scrollUpButton">&#8593;</button>
 
-  <div class="semibackground">
+<div class="semibackground">
+  
+  <ul class="slideshow">
+    <li><span></span></li>
+    <li><span></span></li>
+    <li><span></span></li>
+    <li><span></span></li>
+    <li><span></span></li>
+    <span>
+     <div class="topnav" id="myTopnav">
+       
 
-    <ul class="slideshow">
-      <li><span></span></li>
-      <li><span></span></li>
-      <li><span></span></li>
-      <li><span></span></li>
-      <li><span></span></li>
-      <span>
-        <div class="topnav" id="myTopnav">
-
-
-          <span class="left" style="font-size:40px;cursor:pointer" width="40%" onclick="openNav()"
-            class="side">&#9776;</span>
-
-
-          <img src="https://i.postimg.cc/Jh2vBGbv/computer-icons-eating-restaurant-fork-eat-removebg-preview.png"
-            width="2%" class="lg right">
+    <span class="left" style="font-size:40px;cursor:pointer" width="40%" onclick="openNav()" class="side">&#9776;</span>
 
 
-          <a class="active" href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+       <img src="https://i.postimg.cc/Jh2vBGbv/computer-icons-eating-restaurant-fork-eat-removebg-preview.png" width="2%" class="lg right">
+      
+       
+        <a class="active" href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
           <a href="menu.html">Menu</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp&nbsp&nbsp&nbsp
+  &nbsp&nbsp&nbsp&nbsp
 
 
-          <span class="nav-text"><img
-              src="https://i.postimg.cc/zvGrJ5GD/Screenshot-2023-05-26-185422-removebg-preview.png"
-              class="imglo"></span>&nbsp;&nbsp;&nbsp;&
-          nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="location.html">Locations</a>&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="cart.html">Contact</a>
-
-
-          </a>
-        </div>
-
-        <div id="mySidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-          <center>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3152.94050651972!2d-122.48494299999999!3d37.791433999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzfCsDQ3JzI5LjIiTiAxMjLCsDI5JzA1LjgiVw!5e0!3m2!1sen!2sjp!4v1684974471455!5m2!1sen!2sjp"
-              width="250" height="200" style="border:3;" allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe><br><br>
-            <a class="active" href="#contact">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#contact">Menu</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-
-
-            <a href="location.html">Locations</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#home">Contact</a><br><br>
-            <img src="https://i.postimg.cc/zvGrJ5GD/Screenshot-2023-05-26-185422-removebg-preview.png" width="50%">
-          </center>
-          <h5 class="sidetext2">Discover a world of culinary wonders that will leave you craving for more.<br></h5>
-
-      </span>
+<span class="nav-text"><img src="https://i.postimg.cc/zvGrJ5GD/Screenshot-2023-05-26-185422-removebg-preview.png" class="imglo"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="location.html">Locations</a>&nbsp;&nbsp;&nbsp;&nbsp;
+   <a href="contact.html">Contact</a>
+   
+   
+  </a>
   </div>
+
+<div id="mySidenav" class="sidenav">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><center>
+<iframe 
+ src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3152.94050651972!2d-122.48494299999999!3d37.791433999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzfCsDQ3JzI5LjIiTiAxMjLCsDI5JzA1LjgiVw!5e0!3m2!1sen!2sjp!4v1684974471455!5m2!1sen!2sjp" width="250" height="200" style="border:3;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe><br><br>
+ <a class="active" href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="menu.html">Menu</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp&nbsp&nbsp&nbsp
+
+
+
+      <a href="location.html">Locations</a>&nbsp;&nbsp;&nbsp;&nbsp;
+   <a href="contact.htm">Contact</a><br><br>
+  <img src="https://i.postimg.cc/zvGrJ5GD/Screenshot-2023-05-26-185422-removebg-preview.png" width="50%"></center>
+  <h5 class="sidetext2">Discover a world of culinary wonders that will leave you craving for more.<br></h5>
+
+</span>
+</div>
   </ul>
-  <div class="photobanner">
-    <img class="first" src="https://i.postimg.cc/c4GTP0Fw/Screenshot-2023-05-25-232902.jpg" width="12%" height="412%">
-    <img src="https://i.postimg.cc/3NTRYBrZ/Screenshot-2023-05-25-232847.jpg" alt="" width="13%" height="412%">
-    <img src="https://i.postimg.cc/8z5CpsGx/Screenshot-2023-05-25-232832.jpg" alt="" width="12%" height="412%">
-    <img src="italainfood.png" alt="" width="12%" height="412%">
-    <img src="italianfood2" alt="" width="12%" height="412%">
-    <img src="italianfood3.jpg" alt="" width="12%" height="412%">
+ <div class="photobanner">
+    	<img class="first" src="https://i.postimg.cc/c4GTP0Fw/Screenshot-2023-05-25-232902.jpg" width="12%" height="412%">
+    	<img src="https://i.postimg.cc/3NTRYBrZ/Screenshot-2023-05-25-232847.jpg" alt="" width="13%" height="412%">
+    	<img src="https://i.postimg.cc/8z5CpsGx/Screenshot-2023-05-25-232832.jpg" alt="" width="12%" height="412%">
+    	<img src="italainfood.png" alt="" width="12%" height="412%">
+    	<img src="italianfood2" alt="" width="12%" height="412%">
+    	<img src="italianfood3.jpg" alt="" width="12%" height="412%">
+   
+      
+   
+    </div></ul><br><br><br><br><br><br><br><br><br><br></div>
+ <center> <h1 class="underline-effect">Welcome to Chellini's Kitchen</h1></center>
 
 
-
-  </div>
-  </ul><br><br><br><br><br><br><br><br><br><br></div>
-  <center>
-    <h1 class="underline-effect">Welcome to Chellini's Kitchen</h1>
-  </center>
-
-  <table class="products">
-    <tr class="tr">
-      <td>
-        <h3 class="subt underline-effect">Our Specials</h3>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="menu">
-          <img src="https://i.postimg.cc/632txJnm/unnamed.png" width="100%" class="box">
-          <h3 class="name">Tomato Pasta</h3>
-          <h4 class="infop">Basel tomato pasta is a simple and delicious Swiss pasta dish made with tomatoes, onions,
-            garlic, and fresh basil.
-          </h4>
-          <button class="buttonp button">ORDER</button>
+  <h2 class="underline-effect lo" id="pas">Our Specials</h2>
+      <div class="slideshow-container">
+    <div class="slide">
+  <div class="menu">
+          <img src="https://i.postimg.cc/HLpTpsjC/cheesse.jpg" width="95%" class="box">
+          <h3 class="name">Mozzarella Carrozza</h3>
+          <h4 class="infop">Breaded and fried mozzarella sandwiched between slices of bread.</h4><br><br>
+          <input type="checkbox" id="btn" />
+          <button onclick="addToCart()" class=" cool-button">Order </button>
         </div>
-      </td>
-      <td>
-        <div class="menu">
-          <img src="https://images8.alphacoders.com/644/thumb-1920-644361.jpg" width="100%" class="box">
-          <h3 class="name">Peperoni Pizza</h3>
-          <h4 class="infop">Peperoni fancy pizza is a classic pizza topped with spicy pepperoni slices, gooey mozzarella
-            cheese, and tangy tomato sauce.
-          </h4><br>
-          <button class="buttonp button">ORDER</button>
-
+  <div class="menu">
+          <img src="https://i.postimg.cc/rpPWWHBz/8858381ac87ae1c1799d2abffff1a7aa.jpg" width="100%" class="box">
+          <h3 class="name">Pesto chicken bites </h3>
+          <h4 class="infop">Delectable bite-sized appetizers featuring tender chicken, creamy pesto, and flaky puff
+            pastry.</h4><br><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
         </div>
-      </td>
-      <td>
-        <div class="menu">
-          <img src="https://images8.alphacoders.com/644/thumb-1920-644361.jpg" width="100%" class="box">
-          <h3 class="name">Caprese Salad</h3>
-          <h4 class="infop">A traditional italian salad made out of mozzarella, cucumber, tomato, basel, which is
-            seasoned with salt, pepper, and olive oil.</h4>
-          <button class="buttonp button">ORDER</button>
+  <div class="menu">
+          <img src="https://i.postimg.cc/D0GgphrS/i-Stock-513100705.jpg" width="95%" class="box">
+          <h3 class="name">Prosciutto e Melone</h3>
+          <h4 class="infop">Thinly sliced prosciutto wrapped around sweet melon slices.</h4><br><br>
+         <button onclick="addToCart()" class=" cool-button">Order </button>
 
-        </div>
-      </td>
-    </tr>
-    <tr></tr>
-    <tr></tr>
-    <tr class="tr">
-      <td>
-        <div class="menu">
-          <img src="https://images8.alphacoders.com/644/thumb-1920-644361.jpg" width="100%" class="box">
-          <h3 class="name">Risotto</h3>
-          <h4 class="infop">Rice cooked with chicken broth mixed with butter, mushrooms, meat, onions, white wine, and
-            Parmigiano-Reggiano.</h4>
-          <button class="buttonp button">ORDER</button>
-        </div>
-      </td>
-      <td>
-        <div class="menu">
-          <img src="https://images8.alphacoders.com/644/thumb-1920-644361.jpg" width="100%" class="box">
-          <h3 class="name">Lasagna</h3>
-          <h4 class="infop">Layered pasta with of chosen fillings of meat, cheese, vegtables, and Béchamel Sauce with
-            seasoning of salt, pepper, and and meriad of </h4>
-          <button class="buttonp button">ORDER</button>
+        </div><div class="menu">
+          <img src="https://i.postimg.cc/htT4kkJW/Pasta-Carbonara-2-3-scaled.webp" width="100%" class="box">
+          <h3 class="name">Carbonara</h3>
+          <h4 class="infop">A creamy sauce made with eggs, cheese , pancetta or guanciale, black pepper, and sometimes
+            cream.</h4><br>
+<button onclick="addToCart()" class=" cool-button">Order </button>
 
-        </div>
-      </td>
-      <td>
-        <div class="menu">
-          <img src="https://images8.alphacoders.com/644/thumb-1920-644361.jpg" width="100%" class="box">
-          <h3 class="name">Frittata</h3>
-          <h4 class="infop">An italian omlette dish mixed with yellow and red tomatos, spinich, potato, and almond.</h4>
-          <button class="buttonp button">ORDER</button>
+        </div> <div class="menu">
+          <img
+            src="https://i.postimg.cc/63r42NVs/2981.jpg"
+            width="100%" class="box">
+          <h3 class="name">Quattro Formaggi</h3>
+          <h4 class="infop">This pizza is topped with a combination of four different cheeses such as mozzarella, Gorgonzola, Parmesan, and fontina.</h4><br>
+          <button onclick="addToCart()" class=" cool-button">Order </button>
 
-        </div>
-      </td>
-    </tr>
+        </div></div></div>
+<br><center>
+  <a href="#" class="cool-button size">View More</a></center>
 
-  </table>
-  <br>
-  <center>
-    <a href="#" class="cool-button size">View More</a>
-  </center>
-
-  </button><br><br>
+</button><br><br>
   <div class="responsive-container">
-    <div class="icon-cont">
-      <div class="icon">
-        <img src="https://i.postimg.cc/m2zhddNL/restaurant-icon-transparent-10-removebg-preview.png" alt="Icon 1">
-        <p>Pick-up</p>
-      </div>
-      <div class="icon">
-        <img src="https://i.postimg.cc/bYLF6gYB/OIP-2-removebg-preview.png" alt="Icon 2">
-        <p>Delivery</p>
-      </div>
-      <div class="icon">
-        <img src="https://i.postimg.cc/fTmCGvMs/R-2-removebg-preview.png" alt="Icon 3">
-        <p>Take-out</p>
-      </div>
-      <div class="icon">
-        <img src="https://i.postimg.cc/9fj63f68/R-3-removebg-preview.png" alt="Icon 4">
-        <p>Contact</p>
-      </div>
-    </div>
+  <div class="icon-cont">
+    <div class="icon"><a href="menu.html">
+    <img src="https://i.postimg.cc/m2zhddNL/restaurant-icon-transparent-10-removebg-preview.png" alt="Icon 1"></a>
+    <p>Pick-up</p>
   </div>
-  <div class="menubar">
-    <center>
-      <table class="menutab">
-        <tr>
-          <td class="td5">
-            <img src="https://i.postimg.cc/xjZD8QmX/R-1.jpg" width="70%">
-          </td>
-          <td class="td5">
-            <h2>Treat your taste buds to an unforgettable feast!</h2>
-
-            <br>
-            <h3 class="semitext">
-              Transport yourself to the enchanting streets of Italy with our extraordinary Italian restaurant menu.
-              Immerse your senses in a culinary journey filled with tantalizing flavors and exquisite dishes. From
-              handmade pasta infused with aromatic herbs to wood-fired pizzas topped with the finest ingredients, each
-              bite is a celebration of Italian gastronomy. Discover a world of culinary wonders that will leave you
-              craving for more.
-            </h3><br>
-            </h3><br><a href="#" class="cool-button">Order from our Menu</a>
-          </td>
-
-        </tr>
-      </table>
-    </center>
+  <div class="icon"><a href="menu.html">
+    <img src="https://i.postimg.cc/bYLF6gYB/OIP-2-removebg-preview.png" alt="Icon 2"></a>
+    <p>Delivery</p>
   </div>
-  <div>
-    <div class="content">
-      <center>
-        <h1 class="underline-effect">Our Famous Chef's</h1>
-      </center>
-      <table>
-        <tr class="tr">
-          <td>
-            <div class="menu2">
-              <img src="https://i.postimg.cc/XJrkq7Qs/IMG-3370.jpg" width="100%" class="box">
-              <h3 class="name">Dheeraj Karthikeyan</h3>
-              <ul>
-                <li>Chef</li>
-                <li>Owner&Founder</li>
-              </ul>
-              <center>
-                <h4>dtechkitchen02@gmail.com</h4>
-              </center>
-
-            </div>
-          </td>
-
-          <td>
-            <div class="menu2">
-              <img src="https://i.postimg.cc/zfjcKBw5/IMG-3419.jpg" width="100%" class="box">
-              <h3 class="name">Shardul</h3>
-              <ul>
-                <li>Chef</li>
-                <li>Owner&Founder</li>
-              </ul>
-              <center>
-                <h4>stechkitchen02@gmail.com</h4>
-              </center>
-
-            </div>
-          </td>
-          <td>
-            <div class="menu2">
-              <img src="https://i.postimg.cc/yW4Pw4hv/IMG-2926.jpg" width="100%" class="box">
-              <h3 class="name">Noa Kasahara</h3>
-              <ul>
-                <li>Chef</li>
-                <li>Owner&Founder</li>
-              </ul>
-              <center>
-                <h4>ntechkitchen02@gmail.com</h4>
-              </center>
-            </div>
-          </td>
-        </tr>
-
-      </table>
-    </div>
+  <div class="icon"><a href="menu.html">
+    <img src="https://i.postimg.cc/fTmCGvMs/R-2-removebg-preview.png" alt="Icon 3"></a>
+    <p>Take-out</p>
   </div>
-  <br>
-  <div class="image-container">
-
-    <div id="text-overlay" class="text-overlay">
-      <h1 class="underline-effect text">Current online orders</h1>
-      <h4 class="text5">Still <span class="blinking-text">Counting</span> </h4>
-      <span id="counter">0</span>
-      <p class="text5">Do you want to <a href="#" class="order-link">order</a>?</p>
-    </div>
+  <div class="icon"><a href="contact.html">
+    <img src="https://i.postimg.cc/9fj63f68/R-3-removebg-preview.png" alt="Icon 4"></a>
+    <p>Contact</p>
   </div>
-
-  <div class="element">
-    <center>
-      <ul class="slide2" id="elemen1">
-
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-      </ul>
-      <ul class="slide2 two" id="elemen2">
-
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-      </ul>
-      <ul class="slide2 two" id="elemen3">
-
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-        <li><span></span></li>
-      </ul>
-    </center>
+</div>
   </div>
+  <div class="menubar"><center>
+<table class="menutab">
+  <tr>
+    <td class="td5">
+    <img src="https://i.postimg.cc/xjZD8QmX/R-1.jpg" width="70%">
+ </td>
+<td class="td5"><h2>Treat your taste buds to an unforgettable feast!</h2>
 
+<br><h3 class="semitext">
+  Transport yourself to the enchanting streets of Italy with our extraordinary Italian restaurant menu. Immerse your senses in a culinary journey filled with tantalizing flavors and exquisite dishes. From handmade pasta infused with aromatic herbs to wood-fired pizzas topped with the finest ingredients, each bite is a celebration of Italian gastronomy.  Discover a world of culinary wonders that will leave you craving for more.
+  </h3><br>
+</h3><br><a href="menu.html" class="cool-button">Order from our Menu</a></td>
+   
+    </tr>
+</table></center>
+</div>
+<div>
+  <div class="content">
+   <center> <h1 class="underline-effect">Our Famous Chef's</h1></center>
+  <table>
+  <tr class="tr">
+     <td>
+       
+   <div class="menu2">
+    <img src="https://i.postimg.cc/XJrkq7Qs/IMG-3370.jpg" width="100%" class="box">
+     <h3 class="name">Dheeraj Karthikeyan</h3>
+  <ul>
+      <li>Chef</li>
+      <li>Owner&Founder</li>
+    </ul>
+     <center><h4>dtechkitchen02@gmail.com</h4></center>
 
+  </div>
+      </td>
+  
+    <td>
+   <div class="menu2">
+    <img src="https://i.postimg.cc/zfjcKBw5/IMG-3419.jpg" width="100%" class="box">
+     <h3 class="name">Shardul</h3>
+  <ul>
+      <li>Chef</li>
+      <li>Owner&Founder</li>
+    </ul>
+     <center><h4>stechkitchen02@gmail.com</h4></center>
 
+  </div>
+      </td>
+    <td>
+   <div class="menu2">
+    <img src="https://i.postimg.cc/yW4Pw4hv/IMG-2926.jpg" width="100%" class="box">
+     <h3 class="name">Noa Kasahara</h3>
+    <ul>
+      <li>Chef</li>
+      <li>Owner&Founder</li>
+    </ul>
+   <center><h4>ntechkitchen02@gmail.com</h4></center>
+  </div>
+      </td>
+  </tr>
+  
+</table>
+</div></div>
+<br>
+<div class="image-container">
+  
+  <div id="text-overlay" class="text-overlay">
+    <h1 class="underline-effect text">Current online orders</h1>
+    <h4 class="text5">Still <span class="blinking-text">Counting</span> </h4>
+    <span id="counter">0</span>
+    <p class="text5">Do you want to <a href="#" class="order-link">order</a>?</p>
+  </div>
+</div>
+
+<div class="element" >
   <center>
+<ul class="slide2" id="elemen1">
+
+    <li><span></span></li>
+      <li><span></span></li>  <li><span></span></li>
+    <li><span></span></li>
+      <li><span></span></li>
+  </ul>
+  <ul class="slide2 two" id="elemen2">
+
+    <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+  </ul>
+  <ul class="slide2 two" id="elemen3">
+
+    <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+      <li><span></span></li>
+  </ul>
+ </center>
+</div>
+        
+       
+      
     <div class="footer">
-      <table class="tabledesign">
-        <tr>
-
-          <td>
-            <img class="logo" src="https://i.ibb.co/th4zQ27/image.png">
-          </td>
-          <td>
-            <ul>
-              <li>HOME</li>
-              <li>MENU</li>
-              <li>LOCATION</li>
-              <li>CONTACT</li>
-            </ul>
-          </td>
-          <td>
-            <img class="map" src="https://i.ibb.co/HX9q8xD/image.png">
-          </td>
-        </tr>
-      </table>
-    </div>
-  </center>
+    <table class="tabledesign">
+      <tr>
 
 
 
 
 
 
+        <td>
+          <img class="logo" src="https://i.ibb.co/th4zQ27/image.png">
+
+
+
+
+
+        </td>
+        <td>
+          <ul >
+            <li><a href="index.html" class="txtfo">HOME</a></li><br>
+            <li><a href="menu.html" class="txtfo">MENU</a</li><br><br>
+            <li><a href="location.html" class="txtfo">LOCATION</a></li><br>
+            <li><a href="contact.html" class="txtfo">CONTACT</a></li><br>
+          </ul>
+        </td>
+        <td>
+          <img class="map" src="https://i.ibb.co/HX9q8xD/image.png">
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  
+  
+ 
+      
+      
   <script type="text/javascript" src="script.js"></script>
 
 </body>
