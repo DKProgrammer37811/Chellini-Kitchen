@@ -59,7 +59,20 @@ function openPopup() {
   console.log('Pop-up opened!');
 }
 
-// Attach event listeners to each icon
 Array.from(icons).forEach(function(icon) {
   icon.addEventListener('click', openPopup);
 });
+ 
+    function addToCart() {
+      var cartMessage = document.getElementById("cart-message");
+      var redLine = document.createElement("div");
+      redLine.classList.add("red-line");
+      document.body.appendChild(redLine);
+
+      cartMessage.style.display = "block";
+      setTimeout(function () {
+        cartMessage.style.display = "none";
+        redLine.parentNode.removeChild(redLine);
+      }, 3000); 
+    }
+  
